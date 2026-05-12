@@ -38,10 +38,14 @@ const client = new NWCClient({
 });
 ```
 
+## Subscribe, don't poll
+
+To react to sent or received payments, **subscribe to notifications** rather than polling `listTransactions` or `lookupInvoice` on a timer. See [notifications](./notifications.md) for the patterns and the reasons why.
+
 ## Referenced files
 
 Make sure to read the [NWC Client typings](./nwc.d.ts) when using any of the below referenced files.
 
-- [subscribe to notifications of sent or received payments](./notifications.md)
+- [Subscribe to notifications of sent or received payments](./notifications.md)
 - [How to pay a BOLT-11 lightning invoice](pay-invoice.md)
 - [How to create, settle and cancel HOLD invoices for conditional payments](hold-invoices.md)

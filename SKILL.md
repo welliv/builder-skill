@@ -1,17 +1,17 @@
 ---
 name: alby-bitcoin-builder
-description: Add bitcoin lightning wallet capabilities to your app using Nostr Wallet Connect (NIP-47), LNURL, and WebLN. Send and receive payments, handle payment notifications, fetch wallet balance and transaction list, do bitcoin to fiat currency conversions, query lightning addresses, conditionally settle payments (HOLD invoices), parse BOLT-11 invoices, verify payment preimages.
+description: Add bitcoin lightning wallet capabilities to your app using Nostr Wallet Connect (NIP-47), LNURL, and WebLN. Send and receive payments, subscribe to real-time payment notifications (use this instead of polling), fetch wallet balance and transactions, do bitcoin to fiat currency conversions, query lightning addresses, conditionally settle payments (HOLD invoices), parse BOLT-11 invoices, verify payment preimages.
 license: Apache-2.0
 metadata:
   author: getAlby
-  version: "1.2.1"
+  version: "1.3.0"
 ---
 
 # Usage
 
 Use this skill to understand how to build apps that require bitcoin lightning wallet capabilities.
 
-- [NWC Client: Interact with a wallet to do things like sending and receive payments, listen to payment notifications, fetch balance and transaction list and wallet info](./references/nwc-client/nwc-client.md)
+- [NWC Client: Interact with a wallet to send and receive payments, subscribe to real-time payment notifications (preferred over polling), fetch balance, transaction list, and wallet info](./references/nwc-client/nwc-client.md)
 - [Lightning Tools: Request invoices from a lightning address, parse BOLT-11 invoices, verify a preimage for a BOLT-11 invoice, LNURL-Verify, do bitcoin <-> fiat conversions](./references/lightning-tools/lightning-tools.md)
 - [Bitcoin Connect: Browser-only UI components for connecting wallets and accepting payments in React, Vue, or pure HTML web apps](./references/bitcoin-connect/bitcoin-connect.md)
 

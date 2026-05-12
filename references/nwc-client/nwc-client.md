@@ -38,22 +38,14 @@ const client = new NWCClient({
 });
 ```
 
-## Reacting to wallet activity: subscribe, don't poll
+## Subscribe, don't poll
 
-To react to sent or received payments, **subscribe to notifications** with `client.subscribeNotifications(...)`. See [notifications](./notifications.md).
-
-Do NOT poll `client.listTransactions(...)` on a timer to detect new payments or to check whether a specific invoice has been paid. Polling wastes bandwidth, adds delay, and unnecessarily loads the relay and wallet service. The wallet pushes `payment_received` and `payment_sent` events to subscribers in real time over the existing relay connection.
-
-Typical patterns:
-
-- **Detect an incoming payment to your app** (e.g. invoice settled, order paid): subscribe to `payment_received` notifications and match on the transaction's `payment_hash`.
-- **Display a live transaction list**: fetch once with `listTransactions`, then prepend new transactions from notifications as they arrive.
-- **Wait for a specific invoice**: subscribe to `payment_received` and resolve when the matching `payment_hash` arrives, rather than polling `lookupInvoice` or `listTransactions`.
+To react to sent or received payments, **subscribe to notifications** rather than polling `listTransactions` or `lookupInvoice` on a timer. See [notifications](./notifications.md) for the patterns and the reasons why.
 
 ## Referenced files
 
 Make sure to read the [NWC Client typings](./nwc.d.ts) when using any of the below referenced files.
 
-- [Subscribe to notifications of sent or received payments (use this instead of polling)](./notifications.md)
+- [Subscribe to notifications of sent or received payments](./notifications.md)
 - [How to pay a BOLT-11 lightning invoice](pay-invoice.md)
 - [How to create, settle and cancel HOLD invoices for conditional payments](hold-invoices.md)

@@ -2,7 +2,7 @@
 
 Subscribe to be notified in real time when a payment is sent or received by the wallet.
 
-**This is the correct way to react to wallet activity.** Do NOT poll `listTransactions` on a timer to detect new payments — it wastes bandwidth, adds latency, and hammers the relay and wallet service. A single `subscribeNotifications` call delivers `payment_received` and `payment_sent` events over the existing Nostr relay connection as soon as they happen.
+**This is the correct way to react to wallet activity.** Do NOT poll `listTransactions` or `lookupInvoice` on a timer to detect new payments or check whether an invoice has been paid — it wastes bandwidth, adds latency, and hammers the relay and wallet service. A single `subscribeNotifications` call delivers `payment_received` and `payment_sent` events over the existing Nostr relay connection as soon as they happen.
 
 IMPORTANT: read the [typings](./nwc.d.ts) to better understand the `Nip47Notification` shape (notification types, transaction fields, amounts in millisats).
 
@@ -43,6 +43,23 @@ const unsub = await client.subscribeNotifications((notification) => {
   transactions = [notification.notification, ...transactions];
   renderTransactions(transactions);
 });
+```
+
+## Waiting for a specific invoice to be paid
+
+Instead of polling `lookupInvoice` or `listTransactions`, subscribe to `payment_received` and match on `payment_hash`:
+
+```ts
+function waitForPayment(paymentHash: string): Promise<Nip47Transaction> {
+  return new Promise(async (resolve) => {
+    const unsub = await client.subscribeNotifications((notification) => {
+      if (notification.notification.payment_hash === paymentHash) {
+        unsub();
+        resolve(notification.notification);
+      }
+    }, ["payment_received"]);
+  });
+}
 ```
 
 ## Cleanup
